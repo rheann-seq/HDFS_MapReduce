@@ -1,0 +1,503 @@
+
+compile files on /home/student137
+deploy jars on /user/student137
+The hadoop jars and binaries are store at /usr/local/hadoop
+
+ssh -l student137 heinz-jumbo.heinz.cmu.local
+
+DistributedCMU1$
+
+===================================================================
+
+================Task 7=====================
+
+mkdir Task7
+
+#sftp command to upload or download
+sftp student137@heinz-jumbo.heinz.cmu.local
+DistributedCMU1$
+
+
+cd /home/student137/Project5/Part_1/Task7
+
+mkdir lib
+
+#copy hadoop jars to a lib folder
+cp /usr/local/hadoop/hadoop*.jar /home/student137/Project5/Part_1/Task7/lib
+
+#Compile
+javac -cp "lib/*" *.java
+
+#Create jar
+jar cvf oaklandcrimestatskml.jar *.class
+
+chmod +x oaklandcrimestatskml.jar
+
+#delete jar if already exists on dfs
+hadoop dfs -rmr /user/student137/oaklandcrimestatskml.jar 
+
+#add jar to hdfs
+hadoop dfs -copyFromLocal /home/student137/Project5/Part_1/Task7/oaklandcrimestatskml.jar /user/student137
+
+#check if jar is present
+hadoop dfs -ls /user/student137
+
+#remove all old output files
+hadoop dfs -rmr /user/student137/output
+
+#move input file to input folder
+hadoop dfs -copyFromLocal /home/public/CrimeLatLonXYTabs.txt /user/student137/input/
+
+#check input files
+hadoop dfs -ls /user/student137/input/
+
+#run the jar
+hadoop jar oaklandcrimestatskml.jar KMLJob /user/student137/input/CrimeLatLonXYTabs.txt  /user/student137/output/
+
+#check output folder
+hadoop dfs -ls /user/student137/output/
+
+#verify the output files
+hadoop dfs -cat /user/student137/output/part-r-00000
+hadoop dfs -cat /user/student137/output/part-r-00001
+hadoop dfs -cat /user/student137/output/part-r-00002
+
+#merge the output files
+hadoop dfs -getmerge /user/student137/output Task7Output
+
+
+
+
+
+
+=================Task 6===================================
+mkdir Task6
+
+#sftp command to upload or download
+sftp student137@heinz-jumbo.heinz.cmu.local
+DistributedCMU1$
+
+
+cd /home/student137/Project5/Part_1/Task6
+
+mkdir lib
+
+#copy hadoop jars to a lib folder
+cp /usr/local/hadoop/hadoop*.jar /home/student137/Project5/Part_1/Task6/lib
+
+#Compile
+javac -cp "lib/*" *.java
+
+#Create jar
+jar cvf oaklandcrimestats.jar *.class
+
+chmod +x oaklandcrimestats.jar
+
+#delete jar if already exists on dfs
+hadoop dfs -rmr /user/student137/oaklandcrimestats.jar 
+
+#add jar to hdfs
+hadoop dfs -copyFromLocal /home/student137/Project5/Part_1/Task6/oaklandcrimestats.jar /user/student137
+
+#check if jar is present
+hadoop dfs -ls /user/student137
+
+#remove all old output files
+hadoop dfs -rmr /user/student137/output
+
+#move input file to input folder
+hadoop dfs -copyFromLocal /home/public/P1V.txt /user/student137/input/
+
+#check input files
+hadoop dfs -ls /user/student137/input/
+
+#run the jar
+hadoop jar oaklandcrimestats.jar CrimeCount1 /user/student137/input/P1V.txt /user/student137/output/
+
+#check output folder
+hadoop dfs -ls /user/student137/output/
+
+#verify the output files
+hadoop dfs -cat /user/student137/output/part-r-00000
+hadoop dfs -cat /user/student137/output/part-r-00001
+hadoop dfs -cat /user/student137/output/part-r-00002
+
+#merge the output files
+hadoop dfs -getmerge /user/student137/output Task6Output
+
+
+
+
+==================Task 5==================================
+
+mkdir Task5
+
+#sftp command to upload or download
+sftp student137@heinz-jumbo.heinz.cmu.local
+DistributedCMU1$
+
+
+cd /home/student137/Project5/Part_1/Task5
+
+mkdir lib
+
+#copy hadoop jars to a lib folder
+cp /usr/local/hadoop/hadoop*.jar /home/student137/Project5/Part_1/Task5/lib
+
+#Compile
+javac -cp "lib/*" *.java
+
+#Create jar
+jar cvf aggrvatedassaultsplusrobberies.jar *.class
+
+chmod +x aggrvatedassaultsplusrobberies.jar
+
+#delete jar if already exists on dfs
+hadoop dfs -rmr /user/student137/aggrvatedassaultsplusrobberies.jar 
+
+#add jar to hdfs
+hadoop dfs -copyFromLocal /home/student137/Project5/Part_1/Task5/aggrvatedassaultsplusrobberies.jar /user/student137
+
+#check if jar is present
+hadoop dfs -ls /user/student137
+
+#remove all old output files
+hadoop dfs -rmr /user/student137/output
+
+#move input file to input folder
+hadoop dfs -copyFromLocal /home/public/P1V.txt /user/student137/input/
+
+#check input files
+hadoop dfs -ls /user/student137/input/
+
+#run the jar
+hadoop jar aggrvatedassaultsplusrobberies.jar CrimeCount /user/student137/input/P1V.txt /user/student137/output/
+
+#check output folder
+hadoop dfs -ls /user/student137/output/
+
+#verify the output files
+hadoop dfs -cat /user/student137/output/part-r-00000
+hadoop dfs -cat /user/student137/output/part-r-00001
+hadoop dfs -cat /user/student137/output/part-r-00002
+
+#merge the output files
+hadoop dfs -getmerge /user/student137/output Task5Output
+
+
+
+==================Task 4====================================
+
+mkdir Task4
+
+#sftp command to upload or download
+sftp student137@heinz-jumbo.heinz.cmu.local
+DistributedCMU1$
+
+cd /home/student137/Project5/Part_1/Task4
+
+put MinTemperature.java
+put MinTemperatureMapper.java
+put MinTemperatureReducer.java
+
+#copy hadoop jars to a lib folder
+cp /usr/local/hadoop/hadoop*.jar /home/student137/Project5/Part_1/Task4/lib
+
+#Compile
+javac -cp "lib/*" *.java
+
+#Create jar
+jar cvf mintemperature.jar *.class
+
+chmod +x mintemperature.jar
+
+#delete jar if already exists on dfs
+hadoop dfs -rmr /user/student137/mintemperature.jar 
+
+#add jar to hdfs
+hadoop dfs -copyFromLocal /home/student137/Project5/Part_1/Task4/mintemperature.jar /user/student137
+
+#check if jar is present
+hadoop dfs -ls /user/student137
+
+#remove all old output files
+hadoop dfs -rmr /user/student137/output
+
+#move input file to input folder
+hadoop dfs -copyFromLocal /home/public/combinedYears.txt /user/student137/input/
+
+#check input files
+hadoop dfs -ls /user/student137/input/
+
+#run the jar
+hadoop jar mintemperature.jar MinTemperature /user/student137/input/combinedYears.txt /user/student137/output/
+
+#check output folder
+hadoop dfs -ls /user/student137/output/
+
+#verify the output files
+hadoop dfs -cat /user/student137/output/part-00000
+hadoop dfs -cat /user/student137/output/part-00001
+hadoop dfs -cat /user/student137/output/part-00002
+
+#merge the output files
+hadoop dfs -getmerge /user/student137/output Task4Output
+
+
+==================Task 3=================================
+
+mkdir Task3
+
+cp /home/public/MaxTemperature.java .
+cp /home/public/MaxTemperatureMapper.java .
+cp /home/public/MaxTemperatureReducer.java .
+
+mkdir lib
+
+#copy hadoop jars to a lib folder
+cp /usr/local/hadoop/hadoop*.jar /home/student137/Project5/Part_1/Task3/lib
+
+#Compile
+javac -cp "lib/*" *.java
+
+#Create jar
+jar cvf temperature.jar *.class
+
+chmod +x temperature.jar
+
+#delete jar if already exists on dfs
+hadoop dfs -rmr /user/student137/temperature.jar 
+
+#add jar to hdfs
+hadoop dfs -copyFromLocal /home/student137/Project5/Part_1/Task3/temperature.jar /user/student137
+
+#check if jar is present
+hadoop dfs -ls /user/student137
+
+#remove all old output files
+hadoop dfs -rmr /user/student137/output
+
+#move input file to input folder
+hadoop dfs -copyFromLocal /home/public/combinedYears.txt /user/student137/input/
+
+check 
+
+#run the jar
+hadoop jar temperature.jar MaxTemperature /user/student137/input/combinedYears.txt /user/student137/output/
+
+hadoop dfs -ls /user/student137/output/
+
+#verify the output files
+hadoop dfs -cat /user/student137/output/part-00000
+hadoop dfs -cat /user/student137/output/part-00001
+hadoop dfs -cat /user/student137/output/part-00002
+
+#merge the output files
+hadoop dfs -getmerge /user/student137/output Task3Output
+
+
+=====================Task 2================================
+mkdir Task2
+
+#sftp command to upload or download
+sftp student137@heinz-jumbo.heinz.cmu.local
+DistributedCMU1$
+
+
+cd /home/student137/Project5/Part_1/
+mkdir Task2
+cd Task2
+#Upload FindPattern.java to Task2
+put FindPattern.java
+
+#exit and go back using ssh
+ssh -l student137 heinz-jumbo.heinz.cmu.local
+
+#go to your directory
+cd /home/student137/Project5/Part_1/Task2
+
+#copy hadoop jars to a lib folder
+cp /usr/local/hadoop/hadoop*.jar /home/student137/Project5/Part_1/Task2/lib
+
+#Compile
+javac -cp "lib/*" FindPattern.java
+
+#Create jar
+jar cvf findpattern.jar FindPattern.class  FindPattern\$FindPatternReducer.class FindPattern\$FindPatternMap.class
+
+#chmod
+chmod +x findpattern.jar
+
+#verify jar 
+jar tvf findpattern.jar
+
+#delete jar if already exists on dfs
+hadoop dfs -rmr /user/student137/findpattern.jar 
+
+#add jar to hdfs
+hadoop dfs -copyFromLocal /home/student137/Project5/Part_1/Task2/findpattern.jar /user/student137
+
+#check if jar is present
+hadoop dfs -ls /user/student137
+
+#remove all old output files
+hadoop dfs -rmr /user/student137/output
+
+#run the jar
+hadoop jar findpattern.jar FindPattern /user/student137/input/words.txt /user/student137/output/
+
+#verify the output files
+hadoop dfs -cat /user/student137/output/part-r-00000
+hadoop dfs -cat /user/student137/output/part-r-00001
+hadoop dfs -cat /user/student137/output/part-r-00002
+
+#merge the output files
+hadoop dfs -getmerge /user/student137/output Task2Output
+
+
+==================================================================
+
+to transfer from local:
+$sftp userID@heinz-jumbo.heinz.cmu.local
+sftp>put MaxTemperature.java
+sftp>get MaxTemperature.java
+
+To copy from home to user directory:
+$hadoop dfs -copyFromLocal /home/userID/input/1902.txt /user/userID/input/1902.txt
+
+
+
+=====================Task 1===============================
+
+#sftp command to upload or download
+sftp student137@heinz-jumbo.heinz.cmu.local
+DistributedCMU1$
+
+Get hadoop jars:
+cd /home/student137/Project5/Part_1/Task0/lib
+ls hadoop*.jar
+sftp get 
+
+pwd cd /home/student137/Project5/Part_1/
+mkdir Task1
+Upload LetterCounter.java to Task1
+put LetterCounter.java
+
+ssh -l student137 heinz-jumbo.heinz.cmu.local
+
+cd /home/student137/Project5/Part_1/Task1
+
+cp /usr/local/hadoop/hadoop*.jar /home/student137/Project5/Part_1/Task1/lib
+
+#Compile
+javac -cp "lib/*" LetterCounter.java
+
+#Create jar
+jar cvf lettercount.jar LetterCounter.class LetterCounter\$LetterCountMap.class LetterCounter\$LetterCountReducer.class LetterCounter\$LetterComparator.class
+
+#chmod
+chmod +x lettercount.jar
+
+#verify jar 
+jar tvf lettercount.jar
+
+#delete jar if already exists
+hadoop dfs -rmr /user/student137/lettercount.jar 
+
+#add jar to hdfs
+hadoop dfs -copyFromLocal /home/student137/Project5/Part_1/Task1/lettercount.jar /user/student137
+
+#remove all old output files
+hadoop dfs -rmr /user/student137/output
+
+#run the jar
+hadoop jar lettercount.jar LetterCounter /user/student137/input/words.txt /user/student137/output/
+
+#verify the output files
+hadoop dfs -cat /user/student137/output/part-r-00000
+hadoop dfs -cat /user/student137/output/part-r-00001
+hadoop dfs -cat /user/student137/output/part-r-00002
+
+#merge the output files
+hadoop dfs -getmerge /user/student137/output Task1Output
+
+
+==================================================================
+
+to transfer from local:
+$sftp userID@heinz-jumbo.heinz.cmu.local
+sftp>put MaxTemperature.java
+sftp>get MaxTemperature.java
+
+To copy from home to user directory:
+$hadoop dfs -copyFromLocal /home/userID/input/1902.txt /user/userID/input/1902.txt
+
+=====Task 0======
+
+to copy word count:
+cp /home/public/WordCount.java /home/student137/Project5/Part_1/Task0/
+
+javac WordCount.java
+
+cp hadoop*.jar /home/student137/Project5/Part_1/Task0/ 
+
+cd /home/student137/Project5/Part_1/Task0/ 
+
+#copy jar files to lib folder
+cp /usr/local/hadoop/hadoop*.jar /home/student137/Project5/Part_1/Task0/lib
+
+#Compile
+javac -cp "lib/*" WordCount.java
+
+#create jar
+jar cvf wordcount.jar WordCount.class WordCount\$WordCountMap.class WordCount\$WordCountReducer.class
+
+#chmod
+chmod +x wordcount.jar
+
+#post jar to hdfs
+hadoop dfs -copyFromLocal /home/student137/Project5/Part_1/Task0/wordcount.jar /user/student137
+
+hadoop dfs -copyFromLocal /home/public/words.txt /user/student137/input
+
+hadoop dfs -ls /user/student137/input
+
+#remove all old output files
+hadoop dfs -rmr /user/student137/output
+
+#run the jar
+hadoop jar wordcount.jar WordCount /user/student137/input/words.txt /user/student137/output/
+hadoop jar wordcount.jar org.myorg.WordCount /user/student137/input/words.txt /user/student137/output/
+hadoop jar /home/student137/wordcount.jar  org.myorg.WordCount user/student137/input/words.txt user/student137/output/
+
+hadoop jar /home/student137/wordcount.jar user/student137/input/words.txt user/student137/output/
+
+
+#merge all output files
+hadoop dfs -getmerge /user/student137/output Task0Output
+
+#verify the output files
+hadoop dfs -cat /user/student137/output/part-r-00000
+hadoop dfs -cat /user/student137/output/part-r-00001
+hadoop dfs -cat /user/student137/output/part-r-00002
+
+
+ hadoop dfs -ls /user/student137
+ 
+cd /home/student137/Project5/Part_1/Task0/ 
+
+
+1) Make this is home directory:
+	cd
+	mkdir Project5
+	
+2) Create following folders:
+	cd Project5
+	mkdir Part_1
+	cd Part_1
+	mkdir Task0
+	cd Task0
+
+
+
+
